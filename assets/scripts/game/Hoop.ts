@@ -10,9 +10,16 @@ export default class Hoop extends cc.Component {
 	@property(cc.Float)
 	maxY: number = 400;
 
-	onBeginContact(contact, selfCollider, otherCollider) {
-		if (selfCollider.tag === 1) {
-		}
+	private colliders: Array<cc.PhysicsBoxCollider> = [];
+	private initialOffsets: Array<number> = [];
+
+	onLoad() {
+		this.colliders = this.getComponents(cc.PhysicsBoxCollider);
+		this.initialOffsets = this.colliders.map((c) => c.offset.x);
+	}
+
+	playGoalEffect() {
+		cc.tween(this.node).to(0.2, { opacity: 0 }).delay(0.3).to(0.2, { opacity: 255 }).start();
 	}
 
 	updatePosition(currentSide: ESide) {
@@ -22,5 +29,10 @@ export default class Hoop extends cc.Component {
 
 		this.node.setPosition(posX, randomY);
 		this.node.scaleX = currentSide;
+
+		this.colliders.forEach((collider, index) => {
+			collider.offset = cc.v2(this.initialOffsets[index] * currentSide, collider.offset.y);
+			collider.apply();
+		});
 	}
 }

@@ -20,6 +20,8 @@ export default class GameManager extends cc.Component {
 		cc.director.getPhysicsManager().enabled = true;
 
 		this.ui.showStart();
+
+		this.hoop.node.on('goal', this.handleGoal, this);
 		this.node.on(cc.Node.EventType.TOUCH_START, this.onScreenTouch, this);
 	}
 
@@ -33,10 +35,22 @@ export default class GameManager extends cc.Component {
 		}
 	}
 
+	handleGoal() {
+		this.hoop.playGoalEffect();
+
+		this.currentSide = this.currentSide === ESide.Left ? ESide.Right : ESide.Left;
+
+		this.scheduleOnce(() => {
+			this.hoop.updatePosition(this.currentSide);
+			this.hoop.getComponent(cc.RigidBody).syncPosition(true);
+		}, .5);
+	}
+
 	startGame() {
 		this.ui.showGame();
 
 		this.hoop.updatePosition(this.currentSide);
+		this.hoop.getComponent(cc.RigidBody).syncPosition(true);
 	}
 
 	endGame() {
