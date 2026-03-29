@@ -9,8 +9,10 @@ const { ccclass, property } = cc._decorator;
 export default class GameManager extends cc.Component {
 	@property(UIManager)
 	ui: UIManager = null;
+
 	@property(Ball)
 	ball: Ball = null;
+
 	@property(Hoop)
 	hoop: Hoop = null;
 
@@ -43,7 +45,7 @@ export default class GameManager extends cc.Component {
 		this.scheduleOnce(() => {
 			this.hoop.updatePosition(this.currentSide);
 			this.hoop.getComponent(cc.RigidBody).syncPosition(true);
-		}, .5);
+		}, 0.5);
 	}
 
 	startGame() {

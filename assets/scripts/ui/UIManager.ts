@@ -6,9 +6,14 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class UIManager extends cc.Component {
-	@property(ScreenWithScore) startScreen: ScreenWithScore = null;
-	@property(Screen) gameScreen: Screen = null;
-	@property(ScreenWithScore) resultScreen: ScreenWithScore = null;
+	@property(ScreenWithScore)
+	startScreen: ScreenWithScore = null;
+
+	@property(Screen)
+	gameScreen: Screen = null;
+
+	@property(ScreenWithScore)
+	resultScreen: ScreenWithScore = null;
 
 	showStart() {
 		const best = StorageManager.getBestScore();
