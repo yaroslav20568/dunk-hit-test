@@ -1,3 +1,5 @@
+import { ESide } from '../core/types/index';
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -6,16 +8,16 @@ export default class Ball extends cc.Component {
 	body: cc.RigidBody = null;
 
 	@property(cc.Float)
-	jumpForce: number = 2500;
+	jumpForce: number = 4000;
 
 	@property(cc.Float)
-	forwardForce: number = -400;
+	forwardForce: number = -700;
 
-	jump() {
+	jump(currentSide: ESide) {
 		if (this.body) {
 			this.body.linearVelocity = cc.v2(0, 0);
 
-			let impulse = cc.v2(this.forwardForce, this.jumpForce);
+			let impulse = cc.v2(this.forwardForce * currentSide, this.jumpForce);
 			let worldCenter = this.body.getWorldCenter();
 
 			this.body.applyLinearImpulse(impulse, worldCenter, true);

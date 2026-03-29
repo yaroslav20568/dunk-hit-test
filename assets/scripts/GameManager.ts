@@ -1,5 +1,7 @@
 import UIManager from './ui/UIManager';
 import Ball from './game/Ball';
+import Hoop from './game/Hoop';
+import { ESide } from './core/types/index';
 
 const { ccclass, property } = cc._decorator;
 
@@ -9,6 +11,10 @@ export default class GameManager extends cc.Component {
 	ui: UIManager = null;
 	@property(Ball)
 	ball: Ball = null;
+	@property(Hoop)
+	hoop: Hoop = null;
+
+	private currentSide: ESide = Math.random() < 0.5 ? ESide.Left : ESide.Right;
 
 	onLoad() {
 		cc.director.getPhysicsManager().enabled = true;
@@ -23,12 +29,14 @@ export default class GameManager extends cc.Component {
 		}
 
 		if (this.ui.gameScreen.node.active) {
-			this.ball.jump();
+			this.ball.jump(this.currentSide);
 		}
 	}
 
 	startGame() {
 		this.ui.showGame();
+
+		this.hoop.updatePosition(this.currentSide);
 	}
 
 	endGame() {
