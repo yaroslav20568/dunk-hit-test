@@ -75,6 +75,9 @@ export default class GameManager extends cc.Component {
 		this.timer.stop();
 		this.timer.timeLeft = 5;
 
+		this.ui.updateScoreUI(0);
+		this.ui.updateTimerUI(1, false);
+
 		this.ui.showGame();
 
 		this.hoop.updatePosition(this.currentSide);
@@ -82,9 +85,14 @@ export default class GameManager extends cc.Component {
 	}
 
 	endGame() {
+		this.timer.isActive = false;
 		this.scoreManager.saveIfRecord();
 
-		this.ui.showResult();
+		this.ui.showResult(this.scoreManager.currentScore);
+	}
+
+	public onTryAgainBtnClick() {
+		this.startGame();
 	}
 
 	onDestroy() {

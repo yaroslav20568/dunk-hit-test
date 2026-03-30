@@ -5,7 +5,16 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class ScreenWithScore extends Screen {
 	@property(cc.Label)
+	currentScoreLabel: cc.Label = null;
+
+	@property(cc.Label)
 	bestScoreLabel: cc.Label = null;
+
+	setCurrentScoreToLabel(value: number) {
+		if (this.currentScoreLabel) {
+			this.currentScoreLabel.string = value.toString();
+		}
+	}
 
 	setBestScoreToLabel(value: number) {
 		if (this.bestScoreLabel) {

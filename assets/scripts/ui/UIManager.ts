@@ -39,10 +39,11 @@ export default class UIManager extends cc.Component {
 		this.resultScreen.hide();
 	}
 
-	showResult() {
+	showResult(currentScore: number) {
 		const bestScore = this.scoreManager.getHighScore();
 
 		this.resultScreen.setBestScoreToLabel(bestScore);
+		this.resultScreen.setCurrentScoreToLabel(currentScore);
 
 		this.startScreen.hide();
 		this.gameScreen.hide();
