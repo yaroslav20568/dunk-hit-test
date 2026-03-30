@@ -10,6 +10,9 @@ export default class Hoop extends cc.Component {
 	@property(cc.Float)
 	maxY: number = 400;
 
+	@property(cc.Node)
+	netNode: cc.Node = null;
+
 	private colliders: Array<cc.PhysicsBoxCollider> = [];
 	private initialOffsets: Array<number> = [];
 
@@ -19,7 +22,13 @@ export default class Hoop extends cc.Component {
 	}
 
 	playGoalEffect() {
-		cc.tween(this.node).to(0.2, { opacity: 0 }).delay(0.3).to(0.2, { opacity: 255 }).start();
+		if (this.netNode) {
+			cc.tween(this.netNode)
+				.delay(0.1)
+				.to(0.1, { scaleX: 0.8, scaleY: 1.1 }, { easing: 'quadOut' })
+				.to(0.2, { scaleX: 1.0, scaleY: 1.0 }, { easing: 'elasticOut' })
+				.start();
+		}
 	}
 
 	updatePosition(currentSide: ESide) {
