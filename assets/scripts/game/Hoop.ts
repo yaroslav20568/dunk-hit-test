@@ -21,7 +21,7 @@ export default class Hoop extends cc.Component {
 		this.initialOffsets = this.colliders.map((c) => c.offset.x);
 	}
 
-	playGoalEffect() {
+	public playGoalEffect() {
 		if (this.netNode) {
 			cc.tween(this.netNode)
 				.delay(0.1)
@@ -31,7 +31,7 @@ export default class Hoop extends cc.Component {
 		}
 	}
 
-	updatePosition(currentSide: ESide) {
+	public updatePosition(currentSide: ESide) {
 		let widget = this.node.getComponent(cc.Widget);
 		const rb = this.node.getComponent(cc.RigidBody);
 		const randomY = this.minY + Math.random() * (this.maxY - this.minY);

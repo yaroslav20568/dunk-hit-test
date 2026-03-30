@@ -24,7 +24,7 @@ export default class UIManager extends cc.Component {
 	private scoreManager: ScoreManager = new ScoreManager();
 	private timerTween: cc.Tween = null;
 
-	showStart() {
+	public showStart() {
 		const bestScore = this.scoreManager.getBestScore();
 
 		this.startScreen.setBestScoreToLabel(bestScore);
@@ -34,13 +34,13 @@ export default class UIManager extends cc.Component {
 		this.resultScreen.hide();
 	}
 
-	showGame() {
+	public showGame() {
 		this.startScreen.hide();
 		this.gameScreen.show();
 		this.resultScreen.hide();
 	}
 
-	showResult(currentScore: number) {
+	public showResult(currentScore: number) {
 		const bestScore = this.scoreManager.getBestScore();
 
 		this.resultScreen.setBestScoreToLabel(bestScore);
@@ -51,13 +51,13 @@ export default class UIManager extends cc.Component {
 		this.resultScreen.show();
 	}
 
-	updateScoreUI(count: number) {
+	public updateScoreUI(count: number) {
 		if (this.scoreLabel) {
 			this.scoreLabel.string = count.toString();
 		}
 	}
 
-	updateTimerUI(progress: number, isCritical: boolean) {
+	public updateTimerUI(progress: number, isCritical: boolean) {
 		if (!this.timerBar) return;
 
 		const containerNode = this.timerBar.node.parent;

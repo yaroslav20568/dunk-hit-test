@@ -45,6 +45,10 @@ export default class GameManager extends cc.Component {
 		}
 	}
 
+	onDestroy() {
+		this.node.off(cc.Node.EventType.TOUCH_START, this.onScreenTouch, this);
+	}
+
 	private onScreenTouch() {
 		if (this.ui.startScreen.node.active) {
 			this.startGame();
@@ -53,7 +57,7 @@ export default class GameManager extends cc.Component {
 		}
 	}
 
-	handleGoal() {
+	private handleGoal() {
 		this.soundManager.play('ApplauseAudio');
 
 		this.hoop.playGoalEffect();
@@ -74,7 +78,7 @@ export default class GameManager extends cc.Component {
 		}, 0.5);
 	}
 
-	startGame() {
+	private startGame() {
 		this.scoreManager.reset();
 		this.timer.stop();
 		this.timer.timeLeft = 5;
@@ -88,7 +92,7 @@ export default class GameManager extends cc.Component {
 		this.hoop.getComponent(cc.RigidBody).syncPosition(true);
 	}
 
-	endGame() {
+	private endGame() {
 		this.timer.stop();
 		this.scoreManager.saveIfRecord();
 
@@ -97,9 +101,5 @@ export default class GameManager extends cc.Component {
 
 	public onTryAgainBtnClick() {
 		this.startGame();
-	}
-
-	onDestroy() {
-		this.node.off(cc.Node.EventType.TOUCH_START, this.onScreenTouch, this);
 	}
 }

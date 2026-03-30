@@ -10,13 +10,13 @@ export default class ScreenWithScore extends Screen {
 	@property(cc.Label)
 	bestScoreLabel: cc.Label = null;
 
-	setCurrentScoreToLabel(value: number) {
+	public setCurrentScoreToLabel(value: number) {
 		if (this.currentScoreLabel) {
 			this.currentScoreLabel.string = value.toString();
 		}
 	}
 
-	setBestScoreToLabel(value: number) {
+	public setBestScoreToLabel(value: number) {
 		if (this.bestScoreLabel) {
 			this.bestScoreLabel.string = `Best ${value}`;
 		}

@@ -13,7 +13,7 @@ export default class ResolutionAdapter extends cc.Component {
 		cc.view.setResizeCallback(() => this.adapt());
 	}
 
-	adapt() {
+	private adapt() {
 		let canvas = this.node.getComponent(cc.Canvas);
 		let frameSize = cc.view.getFrameSize();
 		let deviceRatio = frameSize.width / frameSize.height;

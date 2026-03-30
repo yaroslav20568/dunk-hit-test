@@ -2,11 +2,11 @@ const { ccclass } = cc._decorator;
 
 @ccclass
 export default class Screen extends cc.Component {
-	show() {
+	public show() {
 		this.node.active = true;
 	}
 
-	hide() {
+	public hide() {
 		this.node.active = false;
 	}
 }

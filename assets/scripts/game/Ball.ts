@@ -20,7 +20,7 @@ export default class Ball extends cc.Component {
 		return frame.width / frame.height / (design.width / design.height);
 	}
 
-	jump(currentSide: ESide) {
+	public jump(currentSide: ESide) {
 		if (this.body) {
 			this.body.linearVelocity = cc.v2(0, 0);
 
@@ -32,7 +32,7 @@ export default class Ball extends cc.Component {
 		}
 	}
 
-	resetPhysics(position: cc.Vec2 = cc.v2(0, 0)) {
+	public resetPhysics(position: cc.Vec2 = cc.v2(0, 0)) {
 		const rb = this.getComponent(cc.RigidBody);
 
 		if (rb) {
