@@ -35,13 +35,13 @@ export default class GameManager extends cc.Component {
 	}
 
 	update(dt: number) {
-		if (this.timer.isActive) {
-			this.timer.update(dt);
-			this.ui.updateTimerUI(this.timer.progress, this.timer.isCritical());
+		if (!this.timer.isActive) return;
 
-			if (this.timer.timeLeft <= 0) {
-				this.endGame();
-			}
+		this.timer.update(dt);
+		this.ui.updateTimerUI(this.timer.progress, this.timer.isCritical());
+
+		if (this.timer.timeLeft <= 0) {
+			this.endGame();
 		}
 	}
 

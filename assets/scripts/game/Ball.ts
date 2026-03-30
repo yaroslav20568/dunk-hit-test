@@ -21,27 +21,26 @@ export default class Ball extends cc.Component {
 	}
 
 	public jump(currentSide: ESide) {
-		if (this.body) {
-			this.body.linearVelocity = cc.v2(0, 0);
+		if (!this.body) return;
 
-			const coeff = this.jumpCoeff;
-			const impulse = cc.v2(this.forwardForce * coeff * currentSide, this.jumpForce * coeff);
-			let worldCenter = this.body.getWorldCenter();
+		this.body.linearVelocity = cc.v2(0, 0);
 
-			this.body.applyLinearImpulse(impulse, worldCenter, true);
-		}
+		const coeff = this.jumpCoeff;
+		const impulse = cc.v2(this.forwardForce * coeff * currentSide, this.jumpForce * coeff);
+		let worldCenter = this.body.getWorldCenter();
+
+		this.body.applyLinearImpulse(impulse, worldCenter, true);
 	}
 
 	public resetPhysics(position: cc.Vec2 = cc.v2(0, 0)) {
-		const rb = this.getComponent(cc.RigidBody);
+		const rb = this.body || this.getComponent(cc.RigidBody);
 
-		if (rb) {
-			rb.linearVelocity = cc.v2(0, 0);
-			rb.angularVelocity = 0;
+		if (!rb) return;
 
-			this.node.setPosition(position);
+		rb.linearVelocity = cc.v2(0, 0);
+		rb.angularVelocity = 0;
 
-			rb.syncPosition(true);
-		}
+		this.node.setPosition(position);
+		rb.syncPosition(true);
 	}
 }

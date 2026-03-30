@@ -67,23 +67,21 @@ export default class UIManager extends cc.Component {
 			? cc.Color.fromHEX(new cc.Color(), '#FF1493')
 			: cc.Color.fromHEX(new cc.Color(), '#00FFFF');
 
-		if (isCritical) {
-			if (!this.timerTween) {
-				this.timerTween = cc
-					.tween(containerNode)
-					.to(0.15, { scale: 0.95 })
-					.to(0.15, { scale: 1.0 })
-					.union()
-					.repeatForever()
-					.start();
-			}
-		} else {
-			if (this.timerTween) {
-				this.timerTween.stop();
-				this.timerTween = null;
+		if (isCritical && !this.timerTween) {
+			this.timerTween = cc
+				.tween(containerNode)
+				.to(0.15, { scale: 0.95 })
+				.to(0.15, { scale: 1.0 })
+				.union()
+				.repeatForever()
+				.start();
+		}
 
-				containerNode.scale = 1.0;
-			}
+		if (!isCritical && this.timerTween) {
+			this.timerTween.stop();
+			this.timerTween = null;
+
+			containerNode.scale = 1.0;
 		}
 	}
 }

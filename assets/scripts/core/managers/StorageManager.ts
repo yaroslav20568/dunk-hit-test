@@ -16,7 +16,7 @@ export default class StorageManager {
 
 		try {
 			return JSON.parse(data) as T;
-		} catch (e) {
+		} catch {
 			return data as unknown as T;
 		}
 	}

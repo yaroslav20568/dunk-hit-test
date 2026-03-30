@@ -15,35 +15,26 @@ export default class ResolutionAdapter extends cc.Component {
 
 	private adapt() {
 		let canvas = this.node.getComponent(cc.Canvas);
-		let frameSize = cc.view.getFrameSize();
-		let deviceRatio = frameSize.width / frameSize.height;
-		let designRatio = canvas.designResolution.width / canvas.designResolution.height;
+
+		if (!canvas) return;
+
+		const frameSize = cc.view.getFrameSize();
+		const deviceRatio = frameSize.width / frameSize.height;
+		const designRatio = canvas.designResolution.width / canvas.designResolution.height;
 
 		const boundaries = cc.director.getScene().getComponentsInChildren(BoundaryAdapter);
 
-		if (deviceRatio > designRatio) {
-			canvas.fitHeight = true;
-			canvas.fitWidth = false;
-		} else {
-			canvas.fitHeight = false;
-			canvas.fitWidth = true;
-		}
+		const isWide = deviceRatio > designRatio;
 
+		canvas.fitHeight = isWide;
+		canvas.fitWidth = !isWide;
 		cc.director.getScene().walk(
-			(node) => {
-				let widget = node.getComponent(cc.Widget);
-
-				if (widget) {
-					widget.updateAlignment();
-				}
-			},
+			(node) => node.getComponent(cc.Widget)?.updateAlignment(),
 			() => {},
 		);
 
 		boundaries.forEach((b) => b.updateCollider());
 
-		if (this.ball) {
-			this.ball.resetPhysics();
-		}
+		this.ball?.resetPhysics();
 	}
 }

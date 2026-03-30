@@ -22,13 +22,13 @@ export default class Hoop extends cc.Component {
 	}
 
 	public playGoalEffect() {
-		if (this.netNode) {
-			cc.tween(this.netNode)
-				.delay(0.1)
-				.to(0.1, { scaleX: 0.8, scaleY: 1.1 }, { easing: 'quadOut' })
-				.to(0.2, { scaleX: 1.0, scaleY: 1.0 }, { easing: 'elasticOut' })
-				.start();
-		}
+		if (!this.netNode) return;
+
+		cc.tween(this.netNode)
+			.delay(0.1)
+			.to(0.1, { scaleX: 0.8, scaleY: 1.1 }, { easing: 'quadOut' })
+			.to(0.2, { scaleX: 1.0, scaleY: 1.0 }, { easing: 'elasticOut' })
+			.start();
 	}
 
 	public updatePosition(currentSide: ESide) {
@@ -57,8 +57,6 @@ export default class Hoop extends cc.Component {
 			collider.apply();
 		});
 
-		if (rb) {
-			rb.syncPosition(true);
-		}
+		rb?.syncPosition(true);
 	}
 }

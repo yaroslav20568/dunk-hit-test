@@ -19,12 +19,12 @@ export default class SoundManager extends cc.Component {
 	public play(name: string) {
 		const source = this.sources.find((s) => s.node.name === name);
 
-		if (source) {
-			if (source.isPlaying) {
-				source.stop();
-			}
+		if (!source) return;
 
-			source.play();
+		if (source.isPlaying) {
+			source.stop();
 		}
+
+		source.play();
 	}
 }
