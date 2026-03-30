@@ -1,6 +1,6 @@
 import Screen from './Screen';
 import ScreenWithScore from './ScreenWithScore';
-import ScoreManager from '../core/ScoreManager';
+import ScoreManager from '../core/managers/ScoreManager';
 
 const { ccclass, property } = cc._decorator;
 

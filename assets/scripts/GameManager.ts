@@ -3,7 +3,7 @@ import Ball from './game/Ball';
 import Hoop from './game/Hoop';
 import { ESide } from './core/types/index';
 import Timer from './game/Timer';
-import ScoreManager from './core/ScoreManager';
+import ScoreManager from './core/managers/ScoreManager';
 
 const { ccclass, property } = cc._decorator;
 
