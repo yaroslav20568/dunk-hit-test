@@ -12,10 +12,10 @@ export default class ScoreManager {
 	}
 
 	public saveIfRecord(): void {
-		StorageManager.setBestScore(this.currentScore);
+		StorageManager.setItem('best_score', this.currentScore);
 	}
 
 	public getHighScore(): number {
-		return StorageManager.getBestScore();
+		return StorageManager.getItem('best_score', 0);
 	}
 }

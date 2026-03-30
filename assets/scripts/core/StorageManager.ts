@@ -1,13 +1,22 @@
 export default class StorageManager {
-	private static readonly BEST_SCORE_KEY = 'best_score';
+	private static readonly prefix = '@';
 
-	public static setBestScore(score: number): void {
-		cc.sys.localStorage.setItem(this.BEST_SCORE_KEY, score.toString());
+	public static setItem<T>(key: string, value: T): void {
+		const data = typeof value === 'string' ? value : JSON.stringify(value);
+		cc.sys.localStorage.setItem(this.prefix + key, data);
 	}
 
-	public static getBestScore(): number {
-		const score: string | null = cc.sys.localStorage.getItem(this.BEST_SCORE_KEY);
+	public static getItem<T>(key: string, defaultValue: T): T {
+		const data = cc.sys.localStorage.getItem(this.prefix + key);
 
-		return score ? parseInt(score) : 0;
+		if (data === null) {
+			return defaultValue;
+		}
+
+		try {
+			return JSON.parse(data) as T;
+		} catch (e) {
+			return data as unknown as T;
+		}
 	}
 }

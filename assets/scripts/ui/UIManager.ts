@@ -1,6 +1,6 @@
 import Screen from './Screen';
 import ScreenWithScore from './ScreenWithScore';
-import StorageManager from './../core/StorageManager';
+import ScoreManager from '../core/ScoreManager';
 
 const { ccclass, property } = cc._decorator;
 
@@ -15,10 +15,18 @@ export default class UIManager extends cc.Component {
 	@property(ScreenWithScore)
 	resultScreen: ScreenWithScore = null;
 
-	showStart() {
-		const best = StorageManager.getBestScore();
+	@property(cc.Sprite)
+	timerBar: cc.Sprite = null;
 
-		this.startScreen.setBestScoreToLabel(best);
+	@property(cc.Label)
+	scoreLabel: cc.Label = null;
+
+	private scoreManager: ScoreManager = new ScoreManager();
+
+	showStart() {
+		const bestScore = this.scoreManager.getHighScore();
+
+		this.startScreen.setBestScoreToLabel(bestScore);
 
 		this.startScreen.show();
 		this.gameScreen.hide();
@@ -35,5 +43,18 @@ export default class UIManager extends cc.Component {
 		this.startScreen.hide();
 		this.gameScreen.hide();
 		this.resultScreen.show();
+	}
+
+	updateScoreUI(count: number) {
+		if (this.scoreLabel) this.scoreLabel.string = count.toString();
+	}
+
+	updateTimerUI(progress: number, isCritical: boolean) {
+		if (!this.timerBar) return;
+
+		this.timerBar.fillRange = progress;
+		this.timerBar.node.color = isCritical
+			? cc.Color.fromHEX(new cc.Color(), '#FF1493')
+			: cc.Color.fromHEX(new cc.Color(), '#00FFFF');
 	}
 }
