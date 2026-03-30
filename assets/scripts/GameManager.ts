@@ -82,6 +82,8 @@ export default class GameManager extends cc.Component {
 	}
 
 	endGame() {
+		this.scoreManager.saveIfRecord();
+
 		this.ui.showResult();
 	}
 

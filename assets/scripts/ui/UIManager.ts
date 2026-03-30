@@ -40,13 +40,19 @@ export default class UIManager extends cc.Component {
 	}
 
 	showResult() {
+		const bestScore = this.scoreManager.getHighScore();
+
+		this.resultScreen.setBestScoreToLabel(bestScore);
+
 		this.startScreen.hide();
 		this.gameScreen.hide();
 		this.resultScreen.show();
 	}
 
 	updateScoreUI(count: number) {
-		if (this.scoreLabel) this.scoreLabel.string = count.toString();
+		if (this.scoreLabel) {
+			this.scoreLabel.string = count.toString();
+		}
 	}
 
 	updateTimerUI(progress: number, isCritical: boolean) {

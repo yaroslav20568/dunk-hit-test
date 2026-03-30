@@ -3,6 +3,7 @@ export default class StorageManager {
 
 	public static setItem<T>(key: string, value: T): void {
 		const data = typeof value === 'string' ? value : JSON.stringify(value);
+
 		cc.sys.localStorage.setItem(this.prefix + key, data);
 	}
 

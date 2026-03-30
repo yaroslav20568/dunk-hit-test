@@ -12,7 +12,11 @@ export default class ScoreManager {
 	}
 
 	public saveIfRecord(): void {
-		StorageManager.setItem('best_score', this.currentScore);
+		const bestScore = StorageManager.getItem('best_score', 0);
+
+		if (this.currentScore > bestScore) {
+			StorageManager.setItem('best_score', this.currentScore);
+		}
 	}
 
 	public getHighScore(): number {
