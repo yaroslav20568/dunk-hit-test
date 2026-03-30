@@ -21,10 +21,6 @@ export default class ResolutionAdapter extends cc.Component {
 
 		const boundaries = cc.director.getScene().getComponentsInChildren(BoundaryAdapter);
 
-		if (this.ball) {
-			this.ball.resetPhysics(cc.v2(0, 0));
-		}
-
 		if (deviceRatio > designRatio) {
 			canvas.fitHeight = true;
 			canvas.fitWidth = false;
@@ -45,5 +41,9 @@ export default class ResolutionAdapter extends cc.Component {
 		);
 
 		boundaries.forEach((b) => b.updateCollider());
+
+		if (this.ball) {
+			this.ball.resetPhysics(cc.v2(0, 0));
+		}
 	}
 }
