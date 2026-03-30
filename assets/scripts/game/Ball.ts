@@ -23,7 +23,7 @@ export default class Ball extends cc.Component {
 	public jump(currentSide: ESide) {
 		if (!this.body) return;
 
-		this.body.linearVelocity = cc.v2(0, 0);
+		this.body.linearVelocity = cc.Vec2.ZERO;
 
 		const coeff = this.jumpCoeff;
 		const impulse = cc.v2(this.forwardForce * coeff * currentSide, this.jumpForce * coeff);
@@ -32,12 +32,12 @@ export default class Ball extends cc.Component {
 		this.body.applyLinearImpulse(impulse, worldCenter, true);
 	}
 
-	public resetPhysics(position: cc.Vec2 = cc.v2(0, 0)) {
-		const rb = this.body || this.getComponent(cc.RigidBody);
+	public resetPhysics(position: cc.Vec2 = cc.Vec2.ZERO) {
+		const rb = this.getComponent(cc.RigidBody);
 
 		if (!rb) return;
 
-		rb.linearVelocity = cc.v2(0, 0);
+		rb.linearVelocity = cc.Vec2.ZERO;
 		rb.angularVelocity = 0;
 
 		this.node.setPosition(position);
