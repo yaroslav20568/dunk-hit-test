@@ -23,4 +23,17 @@ export default class Ball extends cc.Component {
 			this.body.applyLinearImpulse(impulse, worldCenter, true);
 		}
 	}
+
+	resetPhysics(position: cc.Vec2) {
+		const rb = this.getComponent(cc.RigidBody);
+
+		if (rb) {
+			rb.linearVelocity = cc.v2(0, 0);
+			rb.angularVelocity = 0;
+
+			this.node.setPosition(position);
+
+			rb.syncPosition(true);
+		}
+	}
 }
