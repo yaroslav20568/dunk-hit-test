@@ -4,6 +4,7 @@ import Hoop from './game/Hoop';
 import { ESide } from './core/types/index';
 import Timer from './game/Timer';
 import ScoreManager from './core/managers/ScoreManager';
+import SoundManager from './core/managers/SoundManager';
 
 const { ccclass, property } = cc._decorator;
 
@@ -17,6 +18,9 @@ export default class GameManager extends cc.Component {
 
 	@property(Hoop)
 	hoop: Hoop = null;
+
+	@property(SoundManager)
+	soundManager: SoundManager = null;
 
 	private currentSide: ESide = Math.random() < 0.5 ? ESide.Left : ESide.Right;
 	private timer: Timer = new Timer();
@@ -50,6 +54,8 @@ export default class GameManager extends cc.Component {
 	}
 
 	handleGoal() {
+		this.soundManager.play('ApplauseAudio');
+
 		this.hoop.playGoalEffect();
 		this.scoreManager.addPoint();
 		this.ui.updateScoreUI(this.scoreManager.currentScore);
