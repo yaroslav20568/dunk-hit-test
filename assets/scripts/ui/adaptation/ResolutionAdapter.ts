@@ -1,9 +1,13 @@
 import BoundaryAdapter from './BoundaryAdapter';
+import Ball from '../../game/Ball';
 
-const { ccclass } = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class ResolutionAdapter extends cc.Component {
+	@property(Ball)
+	ball: Ball = null;
+
 	start() {
 		this.adapt();
 		cc.view.setResizeCallback(() => this.adapt());
@@ -16,6 +20,10 @@ export default class ResolutionAdapter extends cc.Component {
 		let designRatio = canvas.designResolution.width / canvas.designResolution.height;
 
 		const boundaries = cc.director.getScene().getComponentsInChildren(BoundaryAdapter);
+
+		if (this.ball) {
+			this.ball.resetPhysics(cc.v2(0, 0));
+		}
 
 		if (deviceRatio > designRatio) {
 			canvas.fitHeight = true;

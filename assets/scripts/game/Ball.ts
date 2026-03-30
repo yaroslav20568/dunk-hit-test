@@ -11,13 +11,21 @@ export default class Ball extends cc.Component {
 	jumpForce: number = 4000;
 
 	@property(cc.Float)
-	forwardForce: number = -700;
+	forwardForce: number = -1000;
+
+	private get jumpCoeff(): number {
+		const frame = cc.view.getFrameSize();
+		const design = cc.view.getDesignResolutionSize();
+
+		return frame.width / frame.height / (design.width / design.height);
+	}
 
 	jump(currentSide: ESide) {
 		if (this.body) {
 			this.body.linearVelocity = cc.v2(0, 0);
 
-			let impulse = cc.v2(this.forwardForce * currentSide, this.jumpForce);
+			const coeff = this.jumpCoeff;
+			const impulse = cc.v2(this.forwardForce * coeff * currentSide, this.jumpForce * coeff);
 			let worldCenter = this.body.getWorldCenter();
 
 			this.body.applyLinearImpulse(impulse, worldCenter, true);
