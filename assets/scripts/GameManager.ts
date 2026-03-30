@@ -78,7 +78,7 @@ export default class GameManager extends cc.Component {
 		this.scoreManager.reset();
 		this.timer.stop();
 		this.timer.timeLeft = 5;
-		this.ball.resetPhysics(cc.v2(0, 0));
+		this.ball.resetPhysics();
 
 		this.ui.updateScoreUI(0);
 		this.ui.updateTimerUI(1, false);

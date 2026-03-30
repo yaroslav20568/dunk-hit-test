@@ -32,7 +32,7 @@ export default class Ball extends cc.Component {
 		}
 	}
 
-	resetPhysics(position: cc.Vec2) {
+	resetPhysics(position: cc.Vec2 = cc.v2(0, 0)) {
 		const rb = this.getComponent(cc.RigidBody);
 
 		if (rb) {
