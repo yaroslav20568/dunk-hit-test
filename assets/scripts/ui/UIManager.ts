@@ -22,6 +22,7 @@ export default class UIManager extends cc.Component {
 	scoreLabel: cc.Label = null;
 
 	private scoreManager: ScoreManager = new ScoreManager();
+	private timerTween: cc.Tween = null;
 
 	showStart() {
 		const bestScore = this.scoreManager.getBestScore();
@@ -59,9 +60,30 @@ export default class UIManager extends cc.Component {
 	updateTimerUI(progress: number, isCritical: boolean) {
 		if (!this.timerBar) return;
 
+		const containerNode = this.timerBar.node.parent;
+
 		this.timerBar.fillRange = progress;
 		this.timerBar.node.color = isCritical
 			? cc.Color.fromHEX(new cc.Color(), '#FF1493')
 			: cc.Color.fromHEX(new cc.Color(), '#00FFFF');
+
+		if (isCritical) {
+			if (!this.timerTween) {
+				this.timerTween = cc
+					.tween(containerNode)
+					.to(0.15, { scale: 0.95 })
+					.to(0.15, { scale: 1.0 })
+					.union()
+					.repeatForever()
+					.start();
+			}
+		} else {
+			if (this.timerTween) {
+				this.timerTween.stop();
+				this.timerTween = null;
+
+				containerNode.scale = 1.0;
+			}
+		}
 	}
 }
