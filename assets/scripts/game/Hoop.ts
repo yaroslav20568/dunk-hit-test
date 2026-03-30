@@ -32,16 +32,33 @@ export default class Hoop extends cc.Component {
 	}
 
 	updatePosition(currentSide: ESide) {
-		const hoopHalfWidth = this.node.width / 2;
+		let widget = this.node.getComponent(cc.Widget);
+		const rb = this.node.getComponent(cc.RigidBody);
 		const randomY = this.minY + Math.random() * (this.maxY - this.minY);
-		const posX = (cc.winSize.width / 2 - hoopHalfWidth) * -currentSide;
 
-		this.node.setPosition(posX, randomY);
+		if (!widget) widget = this.node.addComponent(cc.Widget);
+
+		this.node.y = randomY;
+
+		if (currentSide !== ESide.Left) {
+			widget.isAlignRight = false;
+			widget.isAlignLeft = true;
+		} else {
+			widget.isAlignLeft = false;
+			widget.isAlignRight = true;
+		}
+
+		widget.updateAlignment();
+
 		this.node.scaleX = currentSide;
 
 		this.colliders.forEach((collider, index) => {
 			collider.offset = cc.v2(this.initialOffsets[index] * currentSide, collider.offset.y);
 			collider.apply();
 		});
+
+		if (rb) {
+			rb.syncPosition(true);
+		}
 	}
 }
