@@ -24,7 +24,7 @@ export default class UIManager extends cc.Component {
 	private scoreManager: ScoreManager = new ScoreManager();
 
 	showStart() {
-		const bestScore = this.scoreManager.getHighScore();
+		const bestScore = this.scoreManager.getBestScore();
 
 		this.startScreen.setBestScoreToLabel(bestScore);
 
@@ -40,7 +40,7 @@ export default class UIManager extends cc.Component {
 	}
 
 	showResult(currentScore: number) {
-		const bestScore = this.scoreManager.getHighScore();
+		const bestScore = this.scoreManager.getBestScore();
 
 		this.resultScreen.setBestScoreToLabel(bestScore);
 		this.resultScreen.setCurrentScoreToLabel(currentScore);

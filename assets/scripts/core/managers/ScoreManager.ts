@@ -19,7 +19,7 @@ export default class ScoreManager {
 		}
 	}
 
-	public getHighScore(): number {
+	public getBestScore(): number {
 		return StorageManager.getItem('best_score', 0);
 	}
 }
