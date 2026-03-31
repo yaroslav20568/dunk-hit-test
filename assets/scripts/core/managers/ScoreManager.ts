@@ -1,6 +1,16 @@
 import StorageManager from './StorageManager';
 
 export default class ScoreManager {
+	private static _instance: ScoreManager = null;
+
+	public static get instance(): ScoreManager {
+		if (!this._instance) {
+			this._instance = new ScoreManager();
+		}
+
+		return this._instance;
+	}
+
 	public currentScore: number = 0;
 
 	public addPoint(): void {

@@ -24,7 +24,7 @@ export default class GameManager extends cc.Component {
 
 	private currentSide: ESide = Math.random() < 0.5 ? ESide.Left : ESide.Right;
 	private timer: Timer = new Timer();
-	private scoreManager: ScoreManager = new ScoreManager();
+	private scoreManager = ScoreManager.instance;
 
 	onLoad() {
 		cc.director.getPhysicsManager().enabled = true;
@@ -46,6 +46,7 @@ export default class GameManager extends cc.Component {
 	}
 
 	onDestroy() {
+		this.hoop.node.off('goal', this.handleGoal, this);
 		this.node.off(cc.Node.EventType.TOUCH_START, this.onScreenTouch, this);
 	}
 

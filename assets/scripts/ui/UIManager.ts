@@ -21,8 +21,9 @@ export default class UIManager extends cc.Component {
 	@property(cc.Label)
 	scoreLabel: cc.Label = null;
 
-	private scoreManager: ScoreManager = new ScoreManager();
+	private scoreManager = ScoreManager.instance;
 	private timerTween: cc.Tween = null;
+	private lastCriticalState: boolean = false;
 
 	public showStart() {
 		const bestScore = this.scoreManager.getBestScore();
@@ -32,6 +33,8 @@ export default class UIManager extends cc.Component {
 		this.startScreen.show();
 		this.gameScreen.hide();
 		this.resultScreen.hide();
+
+		this.stopTimerAnimation();
 	}
 
 	public showGame() {
@@ -41,6 +44,8 @@ export default class UIManager extends cc.Component {
 	}
 
 	public showResult(currentScore: number) {
+		this.stopTimerAnimation();
+
 		const bestScore = this.scoreManager.getBestScore();
 
 		this.resultScreen.setBestScoreToLabel(bestScore);
@@ -60,28 +65,42 @@ export default class UIManager extends cc.Component {
 	public updateTimerUI(progress: number, isCritical: boolean) {
 		if (!this.timerBar) return;
 
-		const containerNode = this.timerBar.node.parent;
-
 		this.timerBar.fillRange = progress;
-		this.timerBar.node.color = isCritical
-			? cc.Color.fromHEX(new cc.Color(), '#FF1493')
-			: cc.Color.fromHEX(new cc.Color(), '#00FFFF');
 
-		if (isCritical && !this.timerTween) {
-			this.timerTween = cc
-				.tween(containerNode)
-				.to(0.15, { scale: 0.95 })
-				.to(0.15, { scale: 1.0 })
-				.union()
-				.repeatForever()
-				.start();
+		if (isCritical === this.lastCriticalState) return;
+
+		this.lastCriticalState = isCritical;
+
+		if (isCritical) {
+			this.timerBar.node.color = cc.Color.fromHEX(new cc.Color(), '#FF1493');
+
+			if (!this.timerTween) {
+				this.timerTween = cc
+					.tween(this.timerBar.node.parent)
+					.to(0.15, { scale: 0.95 })
+					.to(0.15, { scale: 1.0 })
+					.union()
+					.repeatForever()
+					.start();
+			}
+		} else {
+			this.stopTimerAnimation();
 		}
+	}
 
-		if (!isCritical && this.timerTween) {
+	private stopTimerAnimation() {
+		if (this.timerTween) {
 			this.timerTween.stop();
 			this.timerTween = null;
+		}
+
+		if (this.timerBar) {
+			const containerNode = this.timerBar.node.parent;
 
 			containerNode.scale = 1.0;
+			this.timerBar.node.color = cc.Color.fromHEX(new cc.Color(), '#00FFFF');
 		}
+
+		this.lastCriticalState = false;
 	}
 }
