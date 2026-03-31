@@ -93,6 +93,12 @@ export default class GameManager extends cc.Component {
 		this.hoop.getComponent(cc.RigidBody).syncPosition(true);
 	}
 
+	private showStartScreenWithRecord() {
+		this.ball.resetPhysics();
+
+		this.ui.showStart();
+	}
+
 	private endGame() {
 		this.timer.stop();
 		this.scoreManager.saveIfRecord();
@@ -101,6 +107,6 @@ export default class GameManager extends cc.Component {
 	}
 
 	public onTryAgainBtnClick() {
-		this.startGame();
+		this.showStartScreenWithRecord();
 	}
 }
