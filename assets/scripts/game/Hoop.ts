@@ -40,7 +40,7 @@ export default class Hoop extends cc.Component {
 
 		this.node.y = randomY;
 
-		if (currentSide !== ESide.Left) {
+		if (currentSide === ESide.Left) {
 			widget.isAlignRight = false;
 			widget.isAlignLeft = true;
 		} else {
@@ -50,10 +50,10 @@ export default class Hoop extends cc.Component {
 
 		widget.updateAlignment();
 
-		this.node.scaleX = currentSide;
+		this.node.scaleX = -currentSide;
 
 		this.colliders.forEach((collider, index) => {
-			collider.offset = cc.v2(this.initialOffsets[index] * currentSide, collider.offset.y);
+			collider.offset = cc.v2(this.initialOffsets[index] * -currentSide, collider.offset.y);
 			collider.apply();
 		});
 

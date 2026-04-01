@@ -26,7 +26,7 @@ export default class Ball extends cc.Component {
 		this.body.linearVelocity = cc.Vec2.ZERO;
 
 		const coeff = this.jumpCoeff;
-		const impulse = cc.v2(this.forwardForce * coeff * currentSide, this.jumpForce * coeff);
+		const impulse = cc.v2(this.forwardForce * coeff * -currentSide, this.jumpForce * coeff);
 		let worldCenter = this.body.getWorldCenter();
 
 		this.body.applyLinearImpulse(impulse, worldCenter, true);

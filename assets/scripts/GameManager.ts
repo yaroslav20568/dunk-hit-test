@@ -22,7 +22,7 @@ export default class GameManager extends cc.Component {
 	@property(SoundManager)
 	soundManager: SoundManager = null;
 
-	private currentSide: ESide = Math.random() < 0.5 ? ESide.Left : ESide.Right;
+	private currentSide: ESide = ESide.Right;
 	private timer: Timer = new Timer();
 	private scoreManager = ScoreManager.instance;
 
