@@ -12,13 +12,19 @@ export default class ScoreManager {
 	}
 
 	public currentScore: number = 0;
+	public perfectStreak: number = 0;
 
 	public addPoint(value: number = 1): void {
 		this.currentScore += value;
 	}
 
+	public incPerfectStreak(): void {
+		this.currentScore++;
+	}
+
 	public reset(): void {
 		this.currentScore = 0;
+		this.perfectStreak = 0;
 	}
 
 	public saveIfRecord(): void {

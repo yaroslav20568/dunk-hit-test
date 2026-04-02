@@ -14,7 +14,10 @@ export default class Ball extends cc.Component {
 	forwardForce: number = -1000;
 
 	@property(cc.ParticleSystem)
-	particles: cc.ParticleSystem = null;
+	defaultParticles: cc.ParticleSystem = null;
+
+	@property(cc.ParticleSystem)
+	smokeParticles: cc.ParticleSystem = null;
 
 	public hasTouchedHoop: boolean = false;
 
@@ -54,8 +57,8 @@ export default class Ball extends cc.Component {
 	public jump(currentSide: ESide) {
 		if (!this.body) return;
 
-		if (this.particles) {
-			this.particles.resetSystem();
+		if (this.defaultParticles) {
+			this.defaultParticles.resetSystem();
 		}
 
 		this.hasTouchedHoop = false;
@@ -78,5 +81,15 @@ export default class Ball extends cc.Component {
 
 		this.node.setPosition(position);
 		rb.syncPosition(true);
+	}
+
+	public setSmokeActive(active: boolean) {
+		if (!this.smokeParticles) return;
+
+		if (active) {
+			this.smokeParticles.resetSystem();
+		} else {
+			this.smokeParticles.stopSystem();
+		}
 	}
 }
