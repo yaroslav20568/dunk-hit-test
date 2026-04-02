@@ -1784,7 +1784,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -60,
+        0,
         0,
         0,
         0,
@@ -1834,7 +1834,7 @@
     "autoRemoveOnFinish": false,
     "totalParticles": 150,
     "duration": 0.1,
-    "emissionRate": 10,
+    "emissionRate": 50,
     "life": 1,
     "lifeVar": 0,
     "_startColor": {
@@ -1865,9 +1865,9 @@
       "b": 0,
       "a": 0
     },
-    "angle": 90,
-    "angleVar": 20,
-    "startSize": 50,
+    "angle": 0,
+    "angleVar": 0,
+    "startSize": 30,
     "startSizeVar": 0,
     "endSize": 0,
     "endSizeVar": 0,
@@ -1960,7 +1960,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -90,
+        0,
         0,
         0,
         0,
@@ -2002,7 +2002,7 @@
     "_custom": true,
     "_file": null,
     "_spriteFrame": {
-      "__uuid__": "472df5d3-35e7-4184-9e6c-7f41bee65ee3"
+      "__uuid__": "4300f941-ba03-4d19-bdb1-959ef40f1852"
     },
     "_texture": null,
     "_stopped": false,
@@ -2010,14 +2010,14 @@
     "autoRemoveOnFinish": false,
     "totalParticles": 150,
     "duration": -1,
-    "emissionRate": 10,
+    "emissionRate": 50,
     "life": 1,
     "lifeVar": 0,
     "_startColor": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 69,
+      "b": 0,
       "a": 255
     },
     "_startColorVar": {
@@ -2041,9 +2041,9 @@
       "b": 0,
       "a": 0
     },
-    "angle": 90,
-    "angleVar": 20,
-    "startSize": 50,
+    "angle": 0,
+    "angleVar": 0,
+    "startSize": 150,
     "startSizeVar": 0,
     "endSize": 0,
     "endSizeVar": 0,
@@ -2139,8 +2139,8 @@
     "_type": 2,
     "_allowSleep": true,
     "_gravityScale": 5,
-    "_linearDamping": 0,
-    "_angularDamping": 0,
+    "_linearDamping": 0.1,
+    "_angularDamping": 0.1,
     "_linearVelocity": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -2520,7 +2520,7 @@
     "tag": 1,
     "_density": 1,
     "_sensor": true,
-    "_friction": 0.2,
+    "_friction": 0,
     "_restitution": 0,
     "body": null,
     "_offset": {
@@ -3037,7 +3037,7 @@
     "tag": 0,
     "_density": 1,
     "_sensor": false,
-    "_friction": 0.2,
+    "_friction": 1,
     "_restitution": 0.8,
     "body": null,
     "_offset": {

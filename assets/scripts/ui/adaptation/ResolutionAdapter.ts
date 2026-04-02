@@ -28,6 +28,7 @@ export default class ResolutionAdapter extends cc.Component {
 
 		canvas.fitHeight = isWide;
 		canvas.fitWidth = !isWide;
+
 		cc.director.getScene().walk(
 			(node) => node.getComponent(cc.Widget)?.updateAlignment(),
 			() => {},

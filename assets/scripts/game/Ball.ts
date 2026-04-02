@@ -13,6 +13,9 @@ export default class Ball extends cc.Component {
 	@property(cc.Float)
 	forwardForce: number = -1000;
 
+	@property(cc.Float)
+	rotationSpeed: number = 200;
+
 	@property(cc.ParticleSystem)
 	defaultParticles: cc.ParticleSystem = null;
 
@@ -30,11 +33,11 @@ export default class Ball extends cc.Component {
 
 		if (ballX > halfWidth) {
 			this.node.x = -halfWidth;
-			this.body.syncPosition(true);
 		} else if (ballX < -halfWidth) {
 			this.node.x = halfWidth;
-			this.body.syncPosition(true);
 		}
+
+		this.body.syncPosition(true);
 	}
 
 	onBeginContact(
@@ -68,6 +71,7 @@ export default class Ball extends cc.Component {
 		const impulse = cc.v2(this.forwardForce * coeff * -currentSide, this.jumpForce * coeff);
 		let worldCenter = this.body.getWorldCenter();
 
+		this.body.angularVelocity = this.rotationSpeed * coeff * currentSide;
 		this.body.applyLinearImpulse(impulse, worldCenter, true);
 	}
 
