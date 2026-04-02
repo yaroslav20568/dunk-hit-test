@@ -3236,8 +3236,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 27.81,
-      "height": 50.4
+      "width": 313.12,
+      "height": 31.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3288,10 +3288,10 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "0",
-    "_N$string": "0",
-    "_fontSize": 50,
-    "_lineHeight": 40,
+    "_string": "Current: 0 / Best: 0",
+    "_N$string": "Current: 0 / Best: 0",
+    "_fontSize": 35,
+    "_lineHeight": 25,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

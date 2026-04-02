@@ -13,6 +13,22 @@ export default class Ball extends cc.Component {
 	@property(cc.Float)
 	forwardForce: number = -1000;
 
+	update() {
+		if (!this.body) return;
+
+		const visibleWidth = cc.view.getVisibleSize().width;
+		const halfWidth = visibleWidth / 2;
+		const ballX = this.node.x;
+
+		if (ballX > halfWidth) {
+			this.node.x = -halfWidth;
+			this.body.syncPosition(true);
+		} else if (ballX < -halfWidth) {
+			this.node.x = halfWidth;
+			this.body.syncPosition(true);
+		}
+	}
+
 	private get jumpCoeff(): number {
 		const frame = cc.view.getFrameSize();
 		const design = cc.view.getDesignResolutionSize();
