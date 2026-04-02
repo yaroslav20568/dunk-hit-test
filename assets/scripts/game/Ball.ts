@@ -13,6 +13,8 @@ export default class Ball extends cc.Component {
 	@property(cc.Float)
 	forwardForce: number = -1000;
 
+	public hasTouchedHoop: boolean = false;
+
 	update() {
 		if (!this.body) return;
 
@@ -29,6 +31,17 @@ export default class Ball extends cc.Component {
 		}
 	}
 
+	onBeginContact(
+		contact: cc.PhysicsContact,
+		selfCollider: cc.PhysicsCollider,
+		otherCollider: cc.PhysicsCollider,
+	) {
+		if (otherCollider.node.name === 'HoopObj' && otherCollider.tag !== 1) {
+			this.hasTouchedHoop = true;
+		}
+		console.log(this.hasTouchedHoop);
+	}
+
 	private get jumpCoeff(): number {
 		const frame = cc.view.getFrameSize();
 		const design = cc.view.getDesignResolutionSize();
@@ -38,6 +51,8 @@ export default class Ball extends cc.Component {
 
 	public jump(currentSide: ESide) {
 		if (!this.body) return;
+
+		this.hasTouchedHoop = false;
 
 		this.body.linearVelocity = cc.Vec2.ZERO;
 

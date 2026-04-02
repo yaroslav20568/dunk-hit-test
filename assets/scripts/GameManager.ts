@@ -59,10 +59,10 @@ export default class GameManager extends cc.Component {
 	}
 
 	private handleGoal() {
-		this.soundManager.play('ApplauseAudio');
+		this.soundManager.play(!this.ball.hasTouchedHoop ? 'LoudApplauseAudio' : 'QuietApplauseAudio');
 
 		this.hoop.playGoalEffect();
-		this.scoreManager.addPoint();
+		this.scoreManager.addPoint(!this.ball.hasTouchedHoop ? 2 : 1);
 		this.ui.updateScoreUI(this.scoreManager.currentScore);
 
 		if (this.scoreManager.currentScore === 1) {

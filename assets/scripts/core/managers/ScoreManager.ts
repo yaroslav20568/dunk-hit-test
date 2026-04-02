@@ -13,8 +13,8 @@ export default class ScoreManager {
 
 	public currentScore: number = 0;
 
-	public addPoint(): void {
-		this.currentScore++;
+	public addPoint(value: number = 1): void {
+		this.currentScore += value;
 	}
 
 	public reset(): void {
