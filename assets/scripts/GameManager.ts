@@ -74,6 +74,10 @@ export default class GameManager extends cc.Component {
 		this.currentSide = this.currentSide === ESide.Left ? ESide.Right : ESide.Left;
 
 		this.scheduleOnce(() => {
+			if (this.scoreManager.currentScore >= 10) {
+				this.hoop.setMoving(true);
+			}
+
 			this.hoop.updatePosition(this.currentSide);
 			this.hoop.getComponent(cc.RigidBody).syncPosition(true);
 		}, 0.5);
@@ -102,6 +106,7 @@ export default class GameManager extends cc.Component {
 	private endGame() {
 		this.timer.stop();
 		this.scoreManager.saveIfRecord();
+		this.hoop.setMoving(false);
 
 		this.ui.showResult(this.scoreManager.currentScore);
 	}

@@ -15,10 +15,31 @@ export default class Hoop extends cc.Component {
 
 	private colliders: Array<cc.PhysicsBoxCollider> = [];
 	private initialOffsets: Array<number> = [];
+	private isMoving: boolean = false;
 
 	onLoad() {
 		this.colliders = this.getComponents(cc.PhysicsBoxCollider);
 		this.initialOffsets = this.colliders.map((c) => c.offset.x);
+	}
+
+	public setMoving(active: boolean) {
+		this.isMoving = active;
+
+		if (active) {
+			this.startMoving();
+		}
+	}
+
+	private startMoving() {
+		const amplitude = 50;
+
+		cc.tween(this.node)
+			.by(1.5, { y: amplitude }, { easing: 'sineInOut' })
+			.by(1.5, { y: -amplitude * 2 }, { easing: 'sineInOut' })
+			.by(1.5, { y: amplitude }, { easing: 'sineInOut' })
+			.union()
+			.repeatForever()
+			.start();
 	}
 
 	public playGoalEffect() {
@@ -35,6 +56,12 @@ export default class Hoop extends cc.Component {
 		let widget = this.node.getComponent(cc.Widget);
 		const rb = this.node.getComponent(cc.RigidBody);
 		const randomY = this.minY + Math.random() * (this.maxY - this.minY);
+
+		cc.Tween.stopAllByTarget(this.node);
+
+		if (this.isMoving) {
+			this.startMoving();
+		}
 
 		if (!widget) widget = this.node.addComponent(cc.Widget);
 
