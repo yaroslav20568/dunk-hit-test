@@ -60,9 +60,12 @@ export default class GameManager extends cc.Component {
 
 	private handleGoal() {
 		const isPerfect = !this.ball.hasTouchedHoop;
-		const isHardModeActive = this.scoreManager.currentScore >= 0;
 
-		this.soundManager.play(isPerfect ? 'LoudApplauseAudio' : 'QuietApplauseAudio');
+		this.scoreManager.addPoint(isPerfect ? 2 : 1);
+		this.ui.updateScoreUI(this.scoreManager.currentScore);
+
+		const currentScore = this.scoreManager.currentScore;
+		const isHardModeActive = currentScore >= 2;
 
 		if (isPerfect) {
 			this.scoreManager.perfectStreak++;
@@ -70,20 +73,18 @@ export default class GameManager extends cc.Component {
 			this.scoreManager.perfectStreak = 0;
 		}
 
-		if (this.scoreManager.perfectStreak >= 1 && isHardModeActive) {
+		this.soundManager.play(isPerfect ? 'LoudApplauseAudio' : 'QuietApplauseAudio');
+		this.hoop.playGoalEffect();
+
+		if (isHardModeActive && this.scoreManager.perfectStreak >= 1) {
 			this.ball.setSmokeActive(true);
 		} else if (!isPerfect) {
 			this.ball.setSmokeActive(false);
 		}
 
-		this.hoop.playGoalEffect();
-		this.scoreManager.addPoint(isPerfect ? 2 : 1);
-		this.ui.updateScoreUI(this.scoreManager.currentScore);
-
-		if (this.scoreManager.currentScore === 1) {
+		if (currentScore >= 1) {
 			this.timer.isActive = true;
 		}
-
 		this.timer.reset();
 
 		this.currentSide = this.currentSide === ESide.Left ? ESide.Right : ESide.Left;
@@ -103,7 +104,7 @@ export default class GameManager extends cc.Component {
 		this.timer.stop();
 		this.timer.timeLeft = 5;
 		this.ball.resetPhysics();
-		this.ball.setSmokeActive(false);
+		this.ball.setSmokeActive(false, true);
 
 		this.ui.updateScoreUI(0);
 		this.ui.updateTimerUI(1, false);

@@ -83,13 +83,18 @@ export default class Ball extends cc.Component {
 		rb.syncPosition(true);
 	}
 
-	public setSmokeActive(active: boolean) {
+	public setSmokeActive(active: boolean, isImmediate: boolean = false) {
 		if (!this.smokeParticles) return;
 
 		if (active) {
+			this.smokeParticles.node.active = true;
 			this.smokeParticles.resetSystem();
 		} else {
 			this.smokeParticles.stopSystem();
+
+			if (isImmediate) {
+				this.smokeParticles.node.active = false;
+			}
 		}
 	}
 }
