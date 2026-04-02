@@ -13,6 +13,9 @@ export default class Ball extends cc.Component {
 	@property(cc.Float)
 	forwardForce: number = -1000;
 
+	@property(cc.ParticleSystem)
+	particles: cc.ParticleSystem = null;
+
 	public hasTouchedHoop: boolean = false;
 
 	update() {
@@ -39,7 +42,6 @@ export default class Ball extends cc.Component {
 		if (otherCollider.node.name === 'HoopObj' && otherCollider.tag !== 1) {
 			this.hasTouchedHoop = true;
 		}
-		console.log(this.hasTouchedHoop);
 	}
 
 	private get jumpCoeff(): number {
@@ -52,8 +54,11 @@ export default class Ball extends cc.Component {
 	public jump(currentSide: ESide) {
 		if (!this.body) return;
 
-		this.hasTouchedHoop = false;
+		if (this.particles) {
+			this.particles.resetSystem();
+		}
 
+		this.hasTouchedHoop = false;
 		this.body.linearVelocity = cc.Vec2.ZERO;
 
 		const coeff = this.jumpCoeff;
