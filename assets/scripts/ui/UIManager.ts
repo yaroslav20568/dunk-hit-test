@@ -58,9 +58,10 @@ export default class UIManager extends cc.Component {
 
 	public updateScoreUI(count: number) {
 		const bestScore = this.scoreManager.getBestScore();
+		const displayBestScore = Math.max(count, bestScore);
 
 		if (this.scoreLabel) {
-			this.scoreLabel.string = `Current: ${count.toString()} / Best: ${bestScore}`;
+			this.scoreLabel.string = `Current: ${count} / Best: ${displayBestScore}`;
 		}
 	}
 
